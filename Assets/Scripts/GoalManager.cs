@@ -9,15 +9,18 @@ public class GoalManager : MonoBehaviour
     public AudioClip winSound;
 
     public void CheckWin()
-    {
-        if (playerReached && shadowReached)
-        {
-            Debug.Log("YOU WIN!");
+{
+    if (GameOverManager.Instance.IsGameOver())
+        return;
 
-            if (audioSource != null && winSound != null)
-            {
-                audioSource.PlayOneShot(winSound);
-            }
+    if(playerReached && shadowReached)
+    {
+        Debug.Log("YOU WIN!");
+
+        if(audioSource != null && winSound != null)
+        {
+            audioSource.PlayOneShot(winSound);
         }
     }
+}
 }

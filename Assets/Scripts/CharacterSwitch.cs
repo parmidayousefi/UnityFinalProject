@@ -7,6 +7,10 @@ public class CharacterSwitch : MonoBehaviour
 
     public CameraController cameraController;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip switchSound;
+
     private bool shadowMode = false;
 
     private void Start()
@@ -26,10 +30,13 @@ public class CharacterSwitch : MonoBehaviour
             player.SetActive(!shadowMode);
             shadow.SetActive(shadowMode);
 
-            if (shadowMode)
-                cameraController.target = shadow.transform;
-            else
-                cameraController.target = player.transform;
+            cameraController.target = shadowMode ? shadow.transform : player.transform;
+
+            // پخش صدا در انتهای عملیات
+            if (audioSource != null && switchSound != null)
+            {
+                audioSource.PlayOneShot(switchSound);
+            }
         }
     }
 }
